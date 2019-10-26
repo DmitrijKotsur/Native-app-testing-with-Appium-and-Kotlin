@@ -6,6 +6,7 @@ import io.appium.java_client.pagefactory.iOSFindBy
 import screen.BaseScreen
 import screen.ContactDetailsScreen
 import screen.EditContactScreen
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class EditContactScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), EditContactScreen {
@@ -30,7 +31,8 @@ class EditContactScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), EditCon
     private var clearEditTextCompanyButton: IOSElement? = null
 
 
-    override fun clearCompanyField(): EditContactScreen {
+    override fun clearCompanyField(companyName: String): EditContactScreen {
+        assertEquals(companyName, editTextContactCompany!!.text, "Expected company name $companyName not equals ${editTextContactCompany!!.text}")
         editTextContactCompany!!.click()
         clearEditTextCompanyButton!!.click()
         return this

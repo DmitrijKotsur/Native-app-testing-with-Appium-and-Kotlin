@@ -23,7 +23,7 @@ class EditContactTest: BaseTest() {
                 .searchContactByName(contactName)
                 .clickOnContact(contactName)
                 .clickEditContactButton()
-                .clearCompanyField()
+                .clearCompanyField(contactCompany)
     }
 
     @Test
