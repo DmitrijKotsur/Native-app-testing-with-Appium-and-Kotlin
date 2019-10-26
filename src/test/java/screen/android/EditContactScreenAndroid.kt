@@ -7,6 +7,7 @@ import screen.EditContactScreen
 
 class EditContactScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), EditContactScreen {
 
+
     override fun createNewContact(fullName: String): ContactDetailsScreen {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

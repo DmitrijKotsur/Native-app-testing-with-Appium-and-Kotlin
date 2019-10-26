@@ -13,16 +13,13 @@ class ContactsListScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Co
         return this
     }
 
-
     override fun clickOnContact(name: String): ContactDetailsScreen {
         return ContactDetailsScreenAndroid(driver!!)
     }
 
-
     override fun clickNewContact(): EditContactScreen {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 
     override fun checkContactExist(name: String): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

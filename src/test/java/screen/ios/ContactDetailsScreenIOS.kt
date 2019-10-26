@@ -15,6 +15,7 @@ class ContactDetailsScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), Cont
     @iOSFindBy(accessibility = "Edit")
     private var editContactButton: IOSElement? = null
 
+
     override fun clickEditContactButton(): EditContactScreen {
         editContactButton!!.click()
         return EditContactScreenIOS(driver!!)
@@ -28,4 +29,5 @@ class ContactDetailsScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), Cont
         assertEquals(title, companyTitle.text, "Actual company $title not equals ${companyTitle.text}")
         return this
     }
+
 }

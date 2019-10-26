@@ -57,5 +57,7 @@ class EditContactScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), EditCon
 
         return ContactDetailsScreenIOS(driver!!)
     }
+
 }
+
 

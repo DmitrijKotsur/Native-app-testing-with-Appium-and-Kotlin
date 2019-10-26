@@ -14,4 +14,5 @@ class ContactDetailsScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), 
     override fun checkOrganisationField(title: String, contactName: String): ContactDetailsScreen {
         return this
     }
+
 }

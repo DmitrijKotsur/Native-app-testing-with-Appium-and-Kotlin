@@ -12,4 +12,5 @@ abstract class BaseScreen(driver: AppiumDriver<*>) {
     init {
         PageFactory.initElements(AppiumFieldDecorator(driver), this)
     }
+
 }

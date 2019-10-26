@@ -16,7 +16,6 @@ class EditContactTest: BaseTest() {
         }
     }
 
-
     @After
     fun tearDown() {
         reopenApp()
@@ -26,7 +25,6 @@ class EditContactTest: BaseTest() {
                 .clickEditContactButton()
                 .clearCompanyField()
     }
-
 
     @Test
     fun editContactCompanyTest() {

@@ -32,11 +32,9 @@ class AppiumServer {
         service!!.start()
     }
 
-
     fun stopServer() {
         service!!.stop()
     }
-
 
     fun checkServerIsRunning(port: Int): Boolean {
         var isServerRunning = false

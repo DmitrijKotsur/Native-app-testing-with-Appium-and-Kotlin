@@ -74,5 +74,4 @@ abstract class BaseTest: AppiumBaseClass() {
         driver().launchApp()
     }
 
-
 }
