@@ -28,6 +28,7 @@ abstract class BaseTest: AppiumBaseClass() {
 
         @JvmStatic
         private lateinit var appiumServer: AppiumServer
+
         @JvmStatic
         protected lateinit var contactsListScreen: ContactsListScreen
 
@@ -48,14 +49,15 @@ abstract class BaseTest: AppiumBaseClass() {
 
             AppiumDriverController.instance.start()
 
-            when (AppiumDriverController.instance.getPlatformName()) {
+            val driver = AppiumDriverController.instance.driver!!
+
+            contactsListScreen = when (AppiumDriverController.instance.getPlatformName()) {
                 AppiumDriverController.Platforms.IOS_SIMULATOR -> {
-                    contactsListScreen = ContactsListScreenIOS(driver = AppiumDriverController.instance.driver!!)
+                    ContactsListScreenIOS(driver = driver)
                 }
 
                 AppiumDriverController.Platforms.ANDROID_SIMULATOR -> {
-                    contactsListScreen = ContactsListScreenAndroid(driver = AppiumDriverController.instance.driver!!)
-
+                    ContactsListScreenAndroid(driver = driver)
                 }
             }
         }

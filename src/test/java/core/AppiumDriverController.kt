@@ -64,6 +64,7 @@ class AppiumDriverController {
             }
 
             Platforms.ANDROID_SIMULATOR -> {
+                caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2")
                 caps.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android")
                 caps.setCapability(MobileCapabilityType.DEVICE_NAME, simulatorName)
                 caps.setCapability(AndroidMobileCapabilityType.AVD, simulatorName)

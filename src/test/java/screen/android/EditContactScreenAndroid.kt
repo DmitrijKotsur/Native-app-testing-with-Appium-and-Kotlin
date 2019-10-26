@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver
 import io.appium.java_client.MobileElement
 import io.appium.java_client.android.AndroidElement
 import io.appium.java_client.pagefactory.AndroidFindBy
+import org.openqa.selenium.support.FindAll
 import org.openqa.selenium.support.FindBy
 import screen.BaseScreen
 import screen.ContactDetailsScreen
@@ -14,7 +15,7 @@ class EditContactScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Edi
     @FindBy(xpath = "//android.widget.EditText[@text=\"Name\"]")
     private var editNameField: AndroidElement? = null
 
-    @AndroidFindBy(id = "com.android.contacts:id/menu_save")
+    @AndroidFindBy(accessibility = "Save")
     private var editDoneButton: AndroidElement? = null
 
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/" +
@@ -44,12 +45,13 @@ class EditContactScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Edi
     }
 
     override fun clearCompanyField(companyName: String): EditContactScreen {
-        var element = driver!!.findElementByXPath(
+        val element = driver!!.findElementByXPath(
                 "//android.widget.EditText[@text=\"$companyName\"]"
         )
         element.click()
+        element.clear()
+        driver.findElementByXPath("//android.widget.EditText[@text=\"Phone\"]").click()
         editDoneButton!!.click()
-
         return this
     }
 }
