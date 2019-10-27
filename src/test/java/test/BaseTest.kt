@@ -3,73 +3,58 @@ package test
 import core.AppiumBaseClass
 import core.AppiumDriverController
 import core.AppiumServer
-import org.junit.After
-import org.junit.AfterClass
-import org.junit.Before
-import org.junit.BeforeClass
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
-import screen.ContactDetailsScreen
+import org.testng.annotations.AfterClass
+import org.testng.annotations.BeforeClass
 import screen.ContactsListScreen
-import screen.EditContactScreen
-import screen.android.ContactDetailsScreenAndroid
 import screen.android.ContactsListScreenAndroid
-import screen.android.EditContactScreenAndroid
-import screen.ios.ContactDetailsScreenIOS
 import screen.ios.ContactsListScreenIOS
-import screen.ios.EditContactScreenIOS
 import java.io.IOException
 
 
-@RunWith(JUnit4::class)
 abstract class BaseTest: AppiumBaseClass() {
 
-    companion object {
 
-        @JvmStatic
-        private lateinit var appiumServer: AppiumServer
+    private lateinit var appiumServer: AppiumServer
 
-        @JvmStatic
-        protected lateinit var contactsListScreen: ContactsListScreen
+    protected lateinit var contactsListScreen: ContactsListScreen
 
-        @JvmStatic
-        @BeforeClass
-        fun configureEnvironment() {
+    @BeforeClass
+    fun configureEnvironment() {
 
-            try {
-                Runtime.getRuntime().exec("/usr/bin/killall -KILL node")
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            appiumServer = AppiumServer()
-            if (!appiumServer.checkServerIsRunning(4725)) {
-                appiumServer.startServer()
-            }
-
-            AppiumDriverController.instance.start()
-
-            val driver = AppiumDriverController.instance.driver!!
-
-            contactsListScreen = when (AppiumDriverController.instance.getPlatformName()) {
-                AppiumDriverController.Platforms.IOS_SIMULATOR -> {
-                    ContactsListScreenIOS(driver = driver)
-                }
-
-                AppiumDriverController.Platforms.ANDROID_SIMULATOR -> {
-                    ContactsListScreenAndroid(driver = driver)
-                }
-            }
+        try {
+            Runtime.getRuntime().exec("/usr/bin/killall -KILL node")
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
 
-        @JvmStatic
-        @AfterClass
-        fun stopAll() {
-            AppiumDriverController.instance.stop()
-            appiumServer.stopServer()
+        appiumServer = AppiumServer()
+        if (!appiumServer.checkServerIsRunning(4725)) {
+            appiumServer.startServer()
         }
 
+        AppiumDriverController.instance.start()
+
+        val driver = AppiumDriverController.instance.driver!!
+
+        contactsListScreen = when (AppiumDriverController.instance.getPlatformName()) {
+            AppiumDriverController.Platforms.IOS_SIMULATOR -> {
+                ContactsListScreenIOS(driver = driver)
+            }
+
+            AppiumDriverController.Platforms.ANDROID_SIMULATOR -> {
+                ContactsListScreenAndroid(driver = driver)
+            }
+        }
     }
+
+
+    @AfterClass
+    fun stopAll() {
+        AppiumDriverController.instance.stop()
+        appiumServer.stopServer()
+    }
+
+
 
     protected fun reopenApp() {
         driver().closeApp()

@@ -1,10 +1,8 @@
 package screen.android
 
 import io.appium.java_client.AppiumDriver
-import io.appium.java_client.MobileElement
 import io.appium.java_client.android.AndroidElement
 import io.appium.java_client.pagefactory.AndroidFindBy
-import org.openqa.selenium.support.FindAll
 import org.openqa.selenium.support.FindBy
 import screen.BaseScreen
 import screen.ContactDetailsScreen
@@ -15,7 +13,7 @@ class EditContactScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Edi
     @FindBy(xpath = "//android.widget.EditText[@text=\"Name\"]")
     private var editNameField: AndroidElement? = null
 
-    @AndroidFindBy(accessibility = "Save")
+    @AndroidFindBy(id = "com.android.contacts:id/menu_save")
     private var editDoneButton: AndroidElement? = null
 
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/" +
@@ -35,7 +33,6 @@ class EditContactScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Edi
         driver!!.findElementByXPath(
                 "//android.widget.EditText[@text=\"Company\"]"
         ).setValue(companyName)
-        editDoneButton!!.click()
         return this
     }
 
@@ -50,7 +47,6 @@ class EditContactScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Edi
         )
         element.click()
         element.clear()
-        driver.findElementByXPath("//android.widget.EditText[@text=\"Phone\"]").click()
         editDoneButton!!.click()
         return this
     }

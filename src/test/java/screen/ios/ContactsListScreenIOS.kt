@@ -20,8 +20,6 @@ class ContactsListScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), Contac
     @iOSFindBy(accessibility = "Add")
     private var addContactButton: IOSElement? = null
 
-    @iOSXCUITFindBy(iOSNsPredicate = "type == 'XCUIElementTypeCell' AND visible==1 ")
-    private var contactsListItems: List<MobileElement>? = null
 
     @iOSXCUITFindBy(iOSNsPredicate = "type == 'XCUIElementTypeStaticText' AND visible==1")
     private var noResultsStub: IOSElement? = null

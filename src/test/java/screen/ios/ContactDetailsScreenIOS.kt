@@ -4,10 +4,10 @@ import io.appium.java_client.AppiumDriver
 import io.appium.java_client.MobileElement
 import io.appium.java_client.ios.IOSElement
 import io.appium.java_client.pagefactory.iOSFindBy
+import org.testng.Assert.assertEquals
 import screen.BaseScreen
 import screen.ContactDetailsScreen
 import screen.EditContactScreen
-import kotlin.test.assertEquals
 
 class ContactDetailsScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), ContactDetailsScreen {
 
@@ -26,7 +26,7 @@ class ContactDetailsScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), Cont
                 .findElementByXPath(
                         "//XCUIElementTypeStaticText[@name=\"$contactName\"]/following-sibling::XCUIElementTypeStaticText"
                 )
-        assertEquals(title, companyTitle.text, "Actual company $title not equals ${companyTitle.text}")
+        assertEquals(companyTitle.text.trim(), title, "Actual company $title not equals ${companyTitle.text}")
         return this
     }
 

@@ -3,15 +3,11 @@ package screen.android
 import io.appium.java_client.AppiumDriver
 import io.appium.java_client.MobileElement
 import io.appium.java_client.android.AndroidElement
-import io.appium.java_client.ios.IOSElement
 import io.appium.java_client.pagefactory.AndroidFindBy
-import org.openqa.selenium.support.FindAll
-import org.openqa.selenium.support.FindBy
 import screen.BaseScreen
 import screen.ContactDetailsScreen
 import screen.ContactsListScreen
 import screen.EditContactScreen
-import java.util.logging.Logger
 
 class ContactsListScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), ContactsListScreen {
 
@@ -25,8 +21,7 @@ class ContactsListScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Co
     @AndroidFindBy(id = "com.android.contacts:id/search_view")
     private var searchField: AndroidElement? = null
 
-    @AndroidFindBy(id = "com.android.contacts:id/totalContactsText")
-    private var noResultStub: AndroidElement? = null
+    private var noResultStubLocator = "com.android.contacts:id/totalContactsText"
 
 
     override fun searchContactByName(name: String): ContactsListScreenAndroid {
@@ -50,10 +45,10 @@ class ContactsListScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Co
         if (searchContactButton != null) {
             searchContactButton!!.click()
             searchField!!.setValue(name)
-            if (noResultStub == null) {
+            if (!elementIsExist(noResultStubLocator)) {
                 isExist = true
             }
-            // Double click back btn for FAB 'add new contact' became visible
+            // click back btn for FAB 'add new contact' became visible
             driver!!.navigate().back()
             return isExist
         }
@@ -61,8 +56,7 @@ class ContactsListScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Co
     }
 
     private fun findContactInListView(name: String): MobileElement? {
-        val result = driver!!.findElementByXPath("//android.widget.TextView[@content-desc=\"$name\"]")
-        return result
+        return driver!!.findElementByXPath("//android.widget.TextView[@content-desc=\"$name\"]")
     }
 
 }

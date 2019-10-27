@@ -1,13 +1,14 @@
 package test
 
-import org.junit.*
+import org.testng.annotations.AfterClass
+import org.testng.annotations.BeforeClass
+import org.testng.annotations.Test
 import test.data.contactCompany
 import test.data.contactName
 
 class EditContactTest: BaseTest() {
 
-
-    @Before
+    @BeforeClass
     fun setUp() {
         if (!contactsListScreen.checkContactExist(contactName)) {
             contactsListScreen
@@ -16,7 +17,7 @@ class EditContactTest: BaseTest() {
         }
     }
 
-    @After
+    @AfterClass
     fun tearDown() {
         reopenApp()
         contactsListScreen
