@@ -21,7 +21,9 @@ class ContactsListScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Co
     @AndroidFindBy(id = "com.android.contacts:id/search_view")
     private var searchField: AndroidElement? = null
 
-    private var noResultStubLocator = "com.android.contacts:id/totalContactsText"
+    private val searchContactButtonId = "com.android.contacts:id/menu_search"
+
+    private var noResultStubId = "com.android.contacts:id/totalContactsText"
 
 
     override fun searchContactByName(name: String): ContactsListScreenAndroid {
@@ -41,16 +43,16 @@ class ContactsListScreenAndroid(driver: AppiumDriver<*>): BaseScreen(driver), Co
     }
 
     override fun checkContactExist(name: String): Boolean {
-        var isExist = false
-        if (searchContactButton != null) {
+        var contactInList = false
+        if (elementIsExistById(searchContactButtonId)) {
             searchContactButton!!.click()
             searchField!!.setValue(name)
-            if (!elementIsExist(noResultStubLocator)) {
-                isExist = true
+            if (!elementIsExistById(noResultStubId)) {
+                contactInList = true
             }
             // click back btn for FAB 'add new contact' became visible
             driver!!.navigate().back()
-            return isExist
+            return contactInList
         }
         return false
     }

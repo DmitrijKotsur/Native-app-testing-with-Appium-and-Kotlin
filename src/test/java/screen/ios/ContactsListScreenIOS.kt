@@ -20,9 +20,10 @@ class ContactsListScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), Contac
     @iOSFindBy(accessibility = "Add")
     private var addContactButton: IOSElement? = null
 
+    @iOSFindBy(xpath = "//XCUIElementTypeButton[@name=\"Cancel\"]")
+    private var closeSearchButton: IOSElement? = null
 
-    @iOSXCUITFindBy(iOSNsPredicate = "type == 'XCUIElementTypeStaticText' AND visible==1")
-    private var noResultsStub: IOSElement? = null
+    private var noResultStubXpath = "//XCUIElementTypeStaticText[@name=\"No Results\"]"
 
 
     override fun searchContactByName(name: String): ContactsListScreen {
@@ -37,9 +38,10 @@ class ContactsListScreenIOS(driver: AppiumDriver<*>): BaseScreen(driver), Contac
 
     override fun checkContactExist(name: String): Boolean {
         searchContactByName(name)
-        if (findContactInListView(name) != null) {
+        if (!elementIsExistByXpath(noResultStubXpath)) {
             return true
         }
+        closeSearchButton!!.click()
         return false
     }
 

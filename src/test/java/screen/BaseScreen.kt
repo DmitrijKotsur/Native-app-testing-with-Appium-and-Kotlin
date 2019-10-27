@@ -8,6 +8,7 @@ import org.openqa.selenium.By
 import org.openqa.selenium.support.PageFactory
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
+import java.lang.Exception
 
 abstract class BaseScreen(driver: AppiumDriver<*>) {
 
@@ -17,20 +18,22 @@ abstract class BaseScreen(driver: AppiumDriver<*>) {
         PageFactory.initElements(AppiumFieldDecorator(driver), this)
     }
 
-    fun elementIsExist(element: String): Boolean {
+    fun elementIsExistById(element: String): Boolean {
         return try {
-            val element = driver!!.findElementById(element)
-            element.isDisplayed
+            val elements = driver!!.findElementsById(element)
+            elements.size > 0
         } catch (e: org.openqa.selenium.NoSuchElementException) {
             false
         }
     }
 
-    fun waitForElementAndClick(element: String) {
-        WebDriverWait(driver, 5).until(
-                ExpectedConditions.elementToBeClickable(By.id(element))
-        )
-        driver!!.findElementById(element).click()
+    fun elementIsExistByXpath(element: String): Boolean {
+        return try {
+            val elements = driver!!.findElementsByXPath(element)
+            elements.size > 0
+        } catch (e: Exception) {
+            false
+        }
     }
 
 }
